@@ -1,0 +1,21 @@
+#!/bin/sh
+
+PREFIX="pre-commit:"
+
+fileList=$(git diff --diff-filter=d --cached --name-only | grep -E '\.(js)$')
+if [ ${#fileList} -gt 0 ]; then
+    if ! npx eslint ${fileList[*]} "$@"; then
+        echo "$PREFIX Commit aborted."
+        echo "$PREFIX You can lint manually via 'yarn lint:scripts'.\n"
+        exit 1
+    fi
+fi
+
+fileList=$(git diff --diff-filter=d --cached --name-only | grep -E '\.(css|scss)$')
+if [ ${#fileList} -gt 0 ]; then
+    if ! npx stylelint ${fileList[*]} "$@"; then
+        echo "$PREFIX Commit aborted."
+        echo "$PREFIX You can lint manually via 'yarn lint:styles'.\n"
+        exit 1
+    fi
+fi

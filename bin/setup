@@ -1,0 +1,11 @@
+#!/bin/bash
+
+yarn
+echo
+
+echo "Installing pre-commit hook ..."
+
+cp bin/pre-commit .git/hooks/pre-commit
+chmod 0755 .git/hooks/pre-commit
+
+echo -e "\033[32mFinished!\033e"

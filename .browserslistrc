@@ -1,0 +1,11 @@
+> 1%
+not ie <= 10
+not op_mini all
+not dead
+
+[modern]
+Chrome >= 58
+Edge >= 15
+Firefox >= 53
+iOS >= 10.1
+Safari >= 10.1

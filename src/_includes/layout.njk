@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/index.css">
+    <link rel="modulepreload" href="/app.modern.js">
+  </head>
+  <body>
+    <script>window.__STATE__={components:{}}</script>
+    {{ content | safe }}
+  </body>
+  {% if app.env === 'production' %}
+    <script>
+      loadJs('/app.modern.js', '/app.js');
+      function loadJs(src, fallback, s) {
+        s = document.createElement('script');
+        if ('noModule' in s) s.type = 'module', s.src = src;
+        else s.async = true, s.src = fallback;
+        document.head.appendChild(s);
+      }
+    </script>
+  {% else %}
+    <script src="/app.js" async></script>
+  {% endif %}
+</html>
